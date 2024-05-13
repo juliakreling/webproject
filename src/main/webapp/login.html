@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="cssAvaliacao.css">
+
+
+
+        <script>
+
+            let tableBody = document.getElementById("idBody");
+            let tr = document.createElement("tr");
+
+        // Criação das Celulas
+        let tdContribuinte = document.createElement("td");
+        let tdEmail = document.createElement("td");
+        let tdInstituicao = document.createElement("td");
+        let tdValorPg = document.createElement("td");
+        let tdExcluir = document.createElement("td");
+        
+
+        // Criação dos campos Input
+        let nomeContribuinteInput = document.createElement("input");
+        let emailInput = document.createElement("input");
+        let instituicaoInput = document.createElement("select");
+        let valorPgInput = document.createElement("input");
+        let excluir = document.createElement("button");
+
+        // Input Contribuinte
+        nomeContribuinteInput.type = "text";
+        nomeContribuinteInput.id = "nomeContribuinteInput";
+        
+
+
+        // Input Email
+        emailInput.type = "text";
+        emailInput.id = "emailInput";
+
+        // Input Instituicao
+        instituicaoInput.id = "instituicaoInput";
+        instituicaoInput.name = "instituicaoInput";
+
+
+        let opVazio = document.createElement("option");
+            opVazio.value = "";
+            opVazio.text = "";
+
+        let opHospital = document.createElement("option");
+            opHospital.value = "hospital";
+            opHospital.text = "Hospital";
+
+        let opCreche = document.createElement("option");
+            opCreche.value = "creche";
+            opCreche.text = "Creche";
+
+        let opMuseu = document.createElement("option");
+            opMuseu.value = "museu";
+            opMuseu.text = "Museu";
+
+        instituicaoInput.appendChild(opVazio);
+        instituicaoInput.appendChild(opHospital);
+        instituicaoInput.appendChild(opCreche);
+        instituicaoInput.appendChild(opMuseu);
+
+        // Input Valor Pago
+        valorPgInput.type = "input";
+        valorPgInput.id = "valorPgInput";
+
+        // Botao Excluir
+        excluir.type = "button";
+        excluir.id = "excluir";
+        excluir.textContent = "Excluir";
+        excluir.onclick = excluirLinha;
+
+        // Criação das linhas<input>
+        tdContribuinte.appendChild(nomeContribuinteInput);
+        tdEmail.appendChild(emailInput);
+        tdInstituicao.appendChild(instituicaoInput);
+        tdValorPg.appendChild(valorPgInput);
+        tdExcluir.appendChild(excluir);
+        
+
+        // Adição de celulas
+        tr.appendChild(tdContribuinte);
+        tr.appendChild(tdEmail);
+        tr.appendChild(tdInstituicao);
+        tr.appendChild(tdValorPg);
+        tr.appendChild(tdExcluir);
+
+        // Adição da linha completa
+        tableBody.appendChild(tr);
+
+            function exibirDados(){
+            let requestContent=this.responseText;
+            let dividas =JSON.parse(requestContent);
+            console.log(requestContent,typeofrequestContent);
+            let input = document.createElement("input");
+            input.value = contacts.valor;
+            let main = document.getElementById("main");
+            
+            }
+
+            function enviar(){
+                let httpRequest = new XMLHttpRequest();
+                const URL_SERVLET_LOGIN = "http://localhost:8080/Trabalho3/MainServlet";
+                let login = document.getElementById("login");
+                let password = document.getElementById("password");
+                //httpRequest.onreadystatechange = printResponse;
+                httpRequest.open("POST", URL_SERVLET_LOGIN, true);
+                httpRequest.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+                httpRequest.send("login="+login+"password="+password);}
+        </script>
+    </head>
+    <body id="body">
+
+        <div>
+
+        
+                <label for="login">Login</label>
+                <input name="login" class="login" id="login" type="text">
+                </br>
+                <label for="password">Senha</label>
+                <input name="password" class="password" id="password">
+                </br>
+                <button name="enviar" class="enviar" id="enviar" onclick="enviar();">Enviar</button>
+
+            <input type="hidden" id="confirmar">
+        </div>
+        
+        <main id="main">
+            <button class="exibir" id="exibir" name="exibir" onclick="exibirDados();"></button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Email</th>
+                        <th>Senha</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyCliente"></tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>CEP</th>
+                        <th>Numero</th>
+                        <th>Complemento</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyEndereco"></tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Valor</th>
+                        <th>Situacao</th>
+                        <th>Numero</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyDivida"></tbody>
+            </table>
+
+        </main>
+
+    </body>
+</html>
